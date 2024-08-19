@@ -1,13 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const TodoTask = require('./models/TodoTask');
+require('dotenv').config();
 
 const app = express();
 
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb+srv://kartikeyashukla009:mYZgeU8lM0dCFuQQ@cluster0.lnvzawa.mongodb.net/todo?retryWrites=true&w=majority&appName=Cluster0")
+const dbPassword = process.env.DB_PASS;
+mongoose.connect(`mongodb+srv://kartikeyashukla009:${dbPassword}@cluster0.lnvzawa.mongodb.net/todo?retryWrites=true&w=majority&appName=Cluster0`)
     .then(() => {
         console.log("db connected");
         app.listen(3000, () => {
